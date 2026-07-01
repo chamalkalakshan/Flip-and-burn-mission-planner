@@ -2,6 +2,8 @@
 
 A mission planning tool for The Expanse solar system. Plan multi-leg interplanetary routes using the flip-and-burn constant-acceleration model, balancing travel time, fuel, cargo, refueling stops, and mission risk.
 
+Live Demo - https://chamalkalakshan.github.io/Flip-and-burn-mission-planner/
+
 ## Features
 
 - **Interactive solar system map** - zoom/pan SVG map with all major Expanse locations from Mercury to Laconia

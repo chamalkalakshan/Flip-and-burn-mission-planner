@@ -35,3 +35,16 @@ Travel uses the Expanse-style flip-and-burn: constant acceleration for the first
 - **Fuel burned**: Tsiolkovsky rocket equation `Δv = Isp * g₀ * ln(m₀/m₁)`
 
 Positions are static (fixed orbital angles per location) — no time-varying positions. Distances use absolute AU difference between bodies.
+
+## Contributors
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/chamalkalakshan">
+        <img src="https://github.com/chamalkalakshan.png" width="80" alt="Chamalka Lakshan"/><br/>
+        <sub><b>Chamalka Lakshan</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>

@@ -14,6 +14,9 @@ export function computeMissionLegs(ship, cargoMassT, legs) {
   let currentFuelT = ship.maxFuelT;
   const results = [];
 
+  // Clamp cargo to ship's physical maximum
+  const effectiveCargoT = Math.min(cargoMassT, ship.maxCargoT);
+
   for (const leg of legs) {
     const origin = LOCATIONS_MAP[leg.originId];
     const destination = LOCATIONS_MAP[leg.destinationId];
@@ -26,16 +29,15 @@ export function computeMissionLegs(ship, cargoMassT, legs) {
       ship.isp,
       ship.dryMassT,
       currentFuelT,
-      cargoMassT,
+      effectiveCargoT,
     );
 
     const fuelAtStartT = currentFuelT;
     const fuelAtEndT = fuelCheck.fuelRemainingT;
 
-    let fuelAfterRefuelT = fuelAtEndT;
-    if (leg.refuelAtDestination && destination.refuelAvailable) {
-      fuelAfterRefuelT = ship.maxFuelT;
-    }
+    // Can only refuel if the leg was actually completed (feasible)
+    const canRefuel = fuelCheck.feasible && leg.refuelAtDestination && destination.refuelAvailable;
+    const fuelAfterRefuelT = canRefuel ? ship.maxFuelT : fuelAtEndT;
 
     currentFuelT = fuelAfterRefuelT;
 
@@ -49,7 +51,7 @@ export function computeMissionLegs(ship, cargoMassT, legs) {
       fuelAtStartT,
       fuelBurnedT: fuelCheck.fuelBurnedT,
       fuelAtEndT,
-      refueled: leg.refuelAtDestination && destination.refuelAvailable,
+      refueled: canRefuel,
       fuelAfterRefuelT,
       isFeasible: fuelCheck.feasible,
       canRefuelHere: destination.refuelAvailable,
